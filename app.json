@@ -1,5 +1,17 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "name": "React Native Simple BarCode Scanner",
+    "slug": "sp-sbr",
+    "sdkVersion": "22.0.0",
+    "privacy": "unlisted",
+    "version": "0.1",
+    "orientation": "portrait",
+    "icon": "bcicon.png",
+    "ios": {
+      "bundleIdentifier": "com.spitoglou.sbr"
+    },
+    "android": {
+      "package": "com.spitoglou.sbr"
+    }
   }
 }
