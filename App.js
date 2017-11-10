@@ -1,9 +1,10 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {CardSection, Header} from './src/components/common'
-import {BarCodeScanner, Permissions, ScreenOrientation, Speech} from 'expo';
-import {Button} from "./src/components/common/Button";
+// @flow
 
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { CardSection, Header } from './src/components/common'
+import { BarCodeScanner, Permissions, ScreenOrientation, Speech } from 'expo'
+import { Button } from './src/components/common/Button'
 
 export default class App extends React.Component {
     state = {
@@ -11,26 +12,27 @@ export default class App extends React.Component {
         cameraActive: false,
         type: '',
         code: ''
-    };
+    }
+
     _handleBarCodeRead = ({type, data}) => {
-        Speech.speak(data.split("").join(" "));
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        Speech.speak(data.split('').join(' '))
+        alert(`Bar code with type ${type} and data ${data} has been scanned!`)
         this.setState({cameraActive: false, type: type, code: data})
     }
 
-    async componentWillMount() {
-        ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT);
-        const {status} = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({hasCameraPermission: status === 'granted'});
+    async componentWillMount () {
+        ScreenOrientation.allow(ScreenOrientation.Orientation.PORTRAIT)
+        const {status} = await Permissions.askAsync(Permissions.CAMERA)
+        this.setState({hasCameraPermission: status === 'granted'})
     }
 
-    renderCamera() {
-        const {hasCameraPermission} = this.state;
+    renderCamera () {
+        const {hasCameraPermission} = this.state
 
         if (hasCameraPermission === null) {
-            return <Text>Requesting for camera permission</Text>;
+            return <Text>Requesting for camera permission</Text>
         } else if (hasCameraPermission === false) {
-            return <Text>No access to camera</Text>;
+            return <Text>No access to camera</Text>
         } else {
             return (
                 <View style={{flex: 1}}>
@@ -45,17 +47,17 @@ export default class App extends React.Component {
                         </Button>
                     </CardSection>
                 </View>
-            );
+            )
         }
     }
 
-    render() {
+    render () {
         if (this.state.cameraActive) {
             return this.renderCamera()
         } else {
             return (
                 <View>
-                    <Header headerText={'Scanner App'}/>
+                    <Header headerText={'Scanner App'} />
                     <Text>Type: {this.state.type}</Text>
                     <Text>Code: {this.state.code}</Text>
                     <CardSection>
@@ -68,8 +70,8 @@ export default class App extends React.Component {
         }
     }
 
-    _activateScanner() {
-        Speech.speak('The scanner is now active');
+    _activateScanner () {
+        Speech.speak('The scanner is now active')
         this.setState({cameraActive: true})
     }
 }
@@ -81,4 +83,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-});
+})
